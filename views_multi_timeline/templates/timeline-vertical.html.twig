@@ -1,0 +1,11 @@
+<section id="cd-timeline" class="cd-container">
+    {% for row in rows %}
+        <div class="cd-timeline-block">
+            <div class="cd-timeline-img cd-picture"></div> <!-- cd-timeline-img -->
+
+            <div class="cd-timeline-content">
+                {{ row.content }}
+            </div> <!-- cd-timeline-content -->
+        </div> <!-- cd-timeline-block -->
+    {% endfor %}
+</section>

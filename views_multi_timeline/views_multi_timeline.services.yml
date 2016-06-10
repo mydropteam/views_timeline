@@ -1,0 +1,3 @@
+services:
+    timeline.base:
+        class: Drupal\views_multi_timeline\Plugin\views\style\Timeline

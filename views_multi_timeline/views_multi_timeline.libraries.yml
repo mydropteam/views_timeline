@@ -1,0 +1,14 @@
+views-multi-timelinejs:
+  version: 1.x
+  js:
+    js/vertical_timeline/vertical-timeline.js : {}
+    js/vertical_timeline/main.js : {}
+  dependencies:
+    - core/jquery
+
+views-multi-timelinecss:
+  version: 1.x
+  css:
+    theme:
+      css/reset.css: {}
+      css/style.css: {}

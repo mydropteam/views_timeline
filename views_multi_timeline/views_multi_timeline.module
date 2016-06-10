@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function views_multi_timeline_theme() {
+    return array(
+        'timeline_vertical' => array(
+            'file' => 'views_multi_timeline.theme.inc',
+            'variables' => array('view' => NULL, 'options' => NULL, 'rows' => NULL),
+        ),
+        'timeline_horizontal' => array(
+            'file' => 'views_multi_timeline.theme.inc',
+            'variables' => array('view' => NULL, 'options' => NULL, 'rows' => NULL),
+        ),
+        'timeline_base' => array(
+            'file' => 'views_multi_timeline.theme.inc',
+        ),
+    );
+}
