@@ -30,7 +30,7 @@ function template_preprocess_timeline_vertical(&$variables) {
             '#field' => $view->field,
             '#row' => $row,
             '#attached' => array(
-                'library' => array('views_multi_timeline/views-multi-timelinejs', 'views_multi_timeline/views-multi-timelinecss'),
+                'library' => array('views_multi_timeline/views-multi-timelinejs.vertical', 'views_multi_timeline/views-multi-timelinecss.vertical'),
             ),
         );
 
@@ -44,10 +44,24 @@ function template_preprocess_timeline_vertical(&$variables) {
  */
 function template_preprocess_timeline_horizontal(&$variables) {
 
+    // factoriser le code
     $view = $variables['view'];
     $rows = $variables['rows'];
+    $date = $variables['dates'];
 
-    kint($rows);
-    kint($variables);
-    die();
+    foreach ($rows as $id => $row) {
+        $variables['rows'][$id] = array();
+        $variables['rows'][$id] = array(
+            '#theme' => array('views_view_fields'),
+            '#view' => $view,
+            '#options' => $variables['options'],
+            '#field' => $view->field,
+            '#row' => $row,
+            '#attached' => array(
+                'library' => array('views_multi_timeline/views-multi-timelinejs.horizontal', 'views_multi_timeline/views-multi-timelinecss.horizontal'),
+            ),
+        );
+
+    }
+    template_preprocess_views_view_unformatted($variables);
 }

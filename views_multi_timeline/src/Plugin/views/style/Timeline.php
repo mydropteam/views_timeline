@@ -28,6 +28,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class Timeline extends StylePluginBase {
 
+    private $displayTypes;
+
+    private $dateTypes;
+
     /**
      * Constructs a PluginBase object.
      *
@@ -40,6 +44,8 @@ class Timeline extends StylePluginBase {
      */
     public function __construct(array $configuration, $plugin_id, $plugin_definition)
     {
+        $this->displayTypes = $this->displayTypes();
+        $this->dateTypes = $this->dateTypes();
         parent::__construct($configuration, $plugin_id, $plugin_definition);
     }
 
@@ -62,7 +68,7 @@ class Timeline extends StylePluginBase {
             '#type' => 'select',
             '#description' => $this->t('Select the timeline time period for this display.'),
             '#default_value' => $this->options['timeline_type'],
-            '#options' => $this->displayTypes(),
+            '#options' => $this->displayTypes,
         );
 
         $form['timeline_date_field'] = array(
@@ -77,13 +83,35 @@ class Timeline extends StylePluginBase {
             ),
             '#options' => $options,
         );
+
+        $form['timeline_date_type'] = array(
+            '#type' => 'select',
+            '#title' => $this->t('Type date'),
+            '#default_value' => $this->options['timeline_date_type'],
+            //'#description' => $this->t('Choice your field date.'),
+            '#states' => array(
+                'invisible' => array(
+                    ':input[name="style_options[timeline_type]"]' => array('value' => 'vertical'),
+                ),
+            ),
+            '#options' => $this->dateTypes,
+        );
     }
 
     /**
      * Timeline display types.
+     * @return array
      */
     public static function displayTypes() {
         return ['vertical' => t('Vertical'), 'horizontal' => t('Horizontal')];
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public static function dateTypes(){
+        return ['d/m/Y' => t('By day (DD/MM/YYYY)'), 'd/m/YTH:i' => t('By day with hours (DD/MM/YYYYTHH:MM)'), 'H:i' => t('By hours only (HH:MM)')];
     }
 
     /**
@@ -92,21 +120,36 @@ class Timeline extends StylePluginBase {
      */
     public function render()
     {
+        $output = [
+            '#view' => $this->view,
+            '#options' => $this->options,
+            '#rows' => $this->view->result,
+        ];
+
         if($this->options['timeline_type'] == 'vertical'){
 
             $this->definition['theme'] = 'timeline_vertical';
         }
         elseif($this->options['timeline_type'] == 'horizontal'){
 
+            $date = array();
             $this->definition['theme'] = 'timeline_horizontal';
-        }
 
-        $output = [
-            '#theme' => $this->themeFunctions(),
-            '#view' => $this->view,
-            '#options' => $this->options,
-            '#rows' => $this->view->result,
-        ];
+            foreach($this->view->result as $id => $result){
+
+                $value = end($result->_entity->get($this->options['timeline_date_field'])->getValue());
+
+                if(isset($value['value']) && !empty($value['value'])){
+
+                    $timestamp = strtotime($value['value']);
+                    $date_render = format_date($timestamp, 'custom', $this->options['timeline_date_type']);
+                }
+                $date[$id] = $date_render;
+            }
+
+            $output['#dates'] = $date;
+        }
+        $output['#theme'] = $this->themeFunctions();
 
         return $output;
     }

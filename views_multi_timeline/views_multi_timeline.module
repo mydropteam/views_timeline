@@ -11,7 +11,7 @@ function views_multi_timeline_theme() {
         ),
         'timeline_horizontal' => array(
             'file' => 'views_multi_timeline.theme.inc',
-            'variables' => array('view' => NULL, 'options' => NULL, 'rows' => NULL),
+            'variables' => array('view' => NULL, 'options' => NULL, 'rows' => NULL, 'dates' => NULL),
         ),
         'timeline_base' => array(
             'file' => 'views_multi_timeline.theme.inc',
