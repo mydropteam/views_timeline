@@ -1,0 +1,30 @@
+views-multi-timelinejs.vertical:
+  version: 1.x
+  js:
+    js/vertical_timeline/vertical-timeline.js : {}
+    js/vertical_timeline/main.js : {}
+  dependencies:
+    - core/jquery
+
+views-multi-timelinejs.horizontal:
+  version: 1.x
+  js:
+    js/horizontal_timeline/horizontal-timeline.js : {}
+    js/horizontal_timeline/main.js : {}
+    js/horizontal_timeline/jquery.mobile.custom.min.js : {}
+  dependencies:
+    - core/jquery
+
+views-multi-timelinecss.vertical:
+  version: 1.x
+  css:
+    theme:
+      css/vertical_timeline/reset.css: {}
+      css/vertical_timeline/style.css: {}
+
+views-multi-timelinecss.horizontal:
+  version: 1.x
+  css:
+    theme:
+      css/horizontal_timeline/reset.css: {}
+      css/horizontal_timeline/style.css: {}

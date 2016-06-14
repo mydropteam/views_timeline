@@ -1,0 +1,12 @@
+name: Views Multi Timeline
+type: module
+description: A new format to views to display vertical timeline
+package: Views
+# core: 8.x
+
+dependencies:
+ - views
+
+version: '8.x-1.0'
+core: '8.x'
+project: 'views_multi_timeline'

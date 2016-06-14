@@ -1,0 +1,38 @@
+ici
+{{kint(rows)}}
+{{kint(dates)}}
+<section class="cd-horizontal-timeline">
+	<div class="timeline">
+		<div class="events-wrapper">
+			<div class="events">
+				<ol>
+				    {% for date in dates %}
+
+					    <li><a href="#0" data-date="{{date}}">{{date}}</a></li>
+
+                    {% endfor %}
+				</ol>
+ 
+				<span class="filling-line" aria-hidden="true"></span>
+			</div> <!-- .events -->
+		</div> <!-- .events-wrapper -->
+			
+		<ul class="cd-timeline-navigation">
+			<li><a href="#0" class="prev inactive">Prev</a></li>
+			<li><a href="#0" class="next">Next</a></li>
+		</ul> <!-- .cd-timeline-navigation -->
+	</div> <!-- .timeline -->
+ 
+	<div class="events-content">
+		<ol>
+
+			{% for row in rows %}
+                <li data-date="22/05/1986">
+                    {{ row.content }}
+                </li>
+			{% endfor %}
+ 
+			<!-- other descriptions here -->
+		</ol>
+	</div> <!-- .events-content -->
+</section>
